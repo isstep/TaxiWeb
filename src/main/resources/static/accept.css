@@ -1,0 +1,82 @@
+body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-family: Arial, sans-serif; /* Шрифт Arial или аналогичный без засечек */
+}
+
+.header {
+    display: flex;
+    background-color: #020101; /* Тёмно-серый цвет для шапки */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    flex-direction: column-reverse;
+    justify-content: center;
+}
+
+.logo {
+    position: absolute;
+    margin-left: 40px;
+    font-size: 40px;
+    margin-right: 20px;
+    color: #FFF;
+    font-family: Forum;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 50px; /* 166.667% */
+    letter-spacing: 0.6px;
+}
+
+.back-button {
+    background-color: #555; /* Серый цвет для кнопки */
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+.back-button1 {
+    background-color: #555; /* Серый цвет для кнопки */
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 90%;
+}
+
+.back-button:hover {
+    background-color: #777; /* Цвет кнопки при наведении курсора */
+}
+
+.error-message {
+    background-color: #ff0000; /* Красный цвет для сообщения об ошибке */
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.order-details-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.order-details {
+    width: 45%; /* Ширина блока с деталями заказа */
+}
+
+.map {
+    width: 50%; /* Ширина блока с картой */
+    height: 400px; /* Высота блока с картой */
+}
+
+h1{
+    margin-top: 20px;
+    margin-left: 30px;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/register.css">
+  <title>Регистрация</title>
+</head>
+<body>
+<header>
+  <div class="text_header"><h1>TAXI BOOBER</h1>  </div>
+  <div class="positonmainheader"></div>
+</header>
+
+<selection>
+  <form action="/register" method="post" th:action="@{/register}" th:object="${user}">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username" th:field="*{username}" required>
+    <br>
+
+    <label for="userEmail">Email:</label>
+    <input type="email" id="userEmail" name="userEmail" th:field="*{userEmail}" required>
+    <br>
+
+    <label for="phoneNumber">Номер телефона:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" required
+           pattern="(\+[0-9]{1,})?[0-9]{10}" title="Введите номер телефона">
+    <br>
+
+    <label for="userPassword">Пароль:</label>
+    <input type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" required>
+    <br>
+
+    <label for="confirmPassword">Подтвердите пароль:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <br>
+
+    <!-- Другие поля для данных регистрации, если необходимо -->
+
+    <button type="submit">Зарегистрироваться</button>
+
+    <a href="http://localhost:8080/login">Перейти к авторизации</a>
+
+  </form>
+</selection>
+</body>
+</html>

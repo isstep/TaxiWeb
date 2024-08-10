@@ -1,0 +1,68 @@
+create database Taxi;
+Use Taxi;
+create table Roles (
+id int primary key AUTO_INCREMENT unique,
+role_Name varchar(30) Not null unique);
+
+insert into Roles (role_Name) values ('Admin'),('Taxist'),('User');
+
+create table Users (
+id int primary key AUTO_INCREMENT,
+role_id int not Null,
+username varchar(60) not null unique,
+user_Email varchar(50) not null unique,
+user_Password varchar(150) not null,
+blocked bool default(false),
+rating int default (5),
+phone_Number varchar(15),
+FOREIGN KEY (role_id) REFERENCES Roles (id)
+);
+
+create table Cities (
+id int primary key AUTO_INCREMENT,
+name_Of_City varchar(60)
+);
+
+create table district(
+id int primary key AUTO_INCREMENT,
+city_id int not null,
+name_Of_District varchar(60),
+FOREIGN KEY (city_id) REFERENCES Cities (id)
+);
+
+create table house(
+id int primary key AUTO_INCREMENT,
+district_id int not null,
+building_Number varchar(60),
+FOREIGN KEY (district_id) REFERENCES district (id)
+);
+
+create table message(
+id int primary key AUTO_INCREMENT,
+recipient_id int not null,
+sender_id int not null,
+text_Message varchar(600),
+FOREIGN KEY (recipient_id) REFERENCES Users (id),
+FOREIGN KEY (sender_id) REFERENCES Users (id),
+message_Date DATETIME not null
+);
+
+create table taxiOrder(
+id int primary key AUTO_INCREMENT,
+house_id int not null,
+recipient_id int not null,
+sender_id int not null,
+price double not null,
+FOREIGN KEY (recipient_id) REFERENCES Users (id),
+FOREIGN KEY (sender_id) REFERENCES Users (id),
+FOREIGN KEY (house_id) REFERENCES house (id),
+order_Date DATETIME not null
+);
+
+create table finalStatus(
+id int primary key AUTO_INCREMENT,
+order_id int not null,
+rating int not null,
+final_Mesage varchar(300),
+FOREIGN KEY (order_id) REFERENCES taxiOrder (id),
+message_Date DATETIME not null);

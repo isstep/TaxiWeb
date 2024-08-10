@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="7.css">
+    <title>Все пользователи</title>
+</head>
+<body>
+<header>
+    <div class="text_header"><h1>TAXI BOOBER</h1><a href="/mainPage">X</a> </div>
+    <div class="positonmainheader"></div>
+</header>
+
+<section>
+    <tr th:each="user : ${Users}">
+        <p>ID пользователя: <span th:text="${user.getId()}"></span></p>
+        <p>Роль: <span th:text="${user.getRoleId()}"></span></p>
+        <p>Имя: <span th:text="${user.getUsername()}"></span></p>
+        <p>Электронная почта: <span th:text="${user.getUserEmail()}"></span></p>
+        <p>Телефон: <span th:text="${user.getPhoneNumber()}"></span></p>
+        <div class="date1"></div>
+    </tr>
+</section>
+</body>
+</html>

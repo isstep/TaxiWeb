@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Taxi Orders</title>
+    <!-- Подключение вашего CSS файла -->
+    <link rel="stylesheet" type="text/css" href="orders.css">
+</head>
+<body>
+<!-- Шапка -->
+<div class="header">
+    <div class="logo">TAXI BOOBER   </div>
+    <a class="back-button" href="/mainPage">На главную</a>
+</div>
+`
+<!-- Отобразим список статусов -->
+<h2>Список заказов:</h2>
+
+<div class="order-card" th:each="order : ${taxiOrders}">
+    <div>
+        <p th:if="${order.getStatusId() != null}" th:text="'Статус: ' + ${statusMap.get(order.getStatusId())}">Unknown</p>
+        <p th:if="${order.getSenderId() != null}" th:text="'Клиент: ' + ${usernamesMap.get(order.getSenderId())}">Unknown</p>
+        <p>
+            <span th:if="${order.getRecipientId() != null}">
+                <span th:text="'Таксист: ' + ${usernamesMap.get(order.getRecipientId())}"></span>
+            </span>
+            <span th:if="${order.getRecipientId() == null}">Таксист: В поиске</span>
+        </p>
+        <p th:text="'Цена: ' + ${order.getPrice()}"></p>
+        <p><a class="back-button" th:href="@{/order(orderId=${order.id})}">Просмотреть заявку</a></p>
+    </div>
+</div>
+
+</body>
+</html>

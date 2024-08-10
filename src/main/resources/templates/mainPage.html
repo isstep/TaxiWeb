@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAXI BOOBER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/mainPage.css">
+</head>
+
+
+<body>
+
+<div class="container">
+  <header>
+    <div class="text_header"><h1>TAXI BOOBER</h1> </div>
+    <div class="positonmainheader">
+      <button id="menuButton">
+        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="22" viewBox="0 0 45 22" fill="none">
+          <line class="line1" y1="21" x2="45" y2="21" stroke="white" stroke-width="2"/>
+          <line class="line2"y1="11" x2="45" y2="11" stroke="white" stroke-width="2"/>
+          <line class="line3" y1="1" x2="45" y2="1" stroke="white" stroke-width="2"/>
+        </svg>
+
+      </button>
+    </div>
+  </header>
+</div>
+<main>
+
+
+
+  <section class="page1"  style="background-image:url('http://mb.carwallpapers.ru/mercedes-benz/cls/2018-450/Mercedes-Benz-CLS-450-2018-2560x1440-011.jpg')">
+    <div class="lines1">
+      <div class="line1"></div>
+      <div class="line1"></div>
+      <div class="line1"></div>
+    </div>
+    <div class="container1">
+      <h1>Закажите такси онлайн</h1>
+      <p>Мы предлагаем быстрые и надежные поездки по доступным ценам.</p>
+      <a href="/createOrder" class="button">Заказать сейчас</a>
+    </div>
+    <nav class="menu-header">
+      <ul id="menu">
+        <li class="menuposition">
+        <li><a href="/createOrder">Заказать такси</a></li>
+        <li><a href="/showOrdersHistory">История заказов</a>
+        <li> <th:block th:if="${userRole == 'Taxist'}">
+          <a href="/ordersToTake">Принять заказ</a>
+          <a href="/taxistOrders">История выполненных мной заказов</a>
+        </th:block>
+        <li><th:block th:if="${userRole == 'Admin'}">
+          <a href="/showAllUsers">Просмотреть всех пользователей</a>
+
+        <!--     <a href="/changeUserRole">Изменить роль пользователя</a>
+        <a href="/allOrders">Посмотреть все заказы</a>
+          <a href="/blockUser">Заблокировать пользователя</a> -->
+        </th:block></li>
+        <li><a href="/logout">Выход</a></li>
+      </ul>
+    </nav>
+
+  </section>
+
+
+  <div id="company-info">
+    <h4 class="company-info-text" >Добро пожаловать в TAXI BOOBER<br> <h4 >С 2024 года TAXI BOOBER предоставляет высококачественные услуги такси.
+      Мы гордимся своей надежностью, комфортом и безопасностью для наших клиентов. Наша философия заключается в обеспечении
+      <br> максимального удовлетворения наших пассажиров, предоставляя им первоклассный сервис по доступным ценам.</h4> </h4>
+    <div class="features">
+      <div class="feature1">
+        <img class="feature-img-2" src="https://elite-travels.ru/wp-content/uploads/2021/08/1614884940.jpg" alt="Иконка Комфорта">
+        <img class="feature-img-2" src="https://www.mad4wheels.com/img/free-car-images/mobile/16022/audi-a8-l-2017-464129.jpg" alt="Иконка Безопасности">
+        <img class="feature-img-2"  src="https://news.parkplace.com/wp-content/uploads/2015/03/gallery2_1_VCC08287.jpg" alt="Иконка Цен">
+      </div>
+      <div class="feature2">
+        <h2 class="highlight">Надежность: Мы гарантируем своевременное прибытие и исполнение заказов, чтобы вы могли планировать свое время без лишних забот.</h2>
+        <h2 class="highlight">Комфорт: Наши автомобили всегда чисты, ухожены и оснащены всем необходимым для приятной поездки. Мы ценим ваш комфорт!</h2>
+        <h2 class="highlight">Безопасность: Безопасность наших пассажиров - наш приоритет. Мы работаем с опытными водителями, имеющими безупречный профессионализм <br>и внимательность к дорожной обстановке.</h2>
+
+      </div>
+
+    </div>
+
+
+    <section class="models">
+      <div class="modelCont">
+        <div class="d-flex flexcont">
+          <div class="flex-item">
+            <div class="flex-item-inner d-flex align-items-end justify-content-center" style="background-image:url('https://douvogiannis.com/cars/pic1.png')">
+              <div class="modelInnerText"><h2>Эконом-класс:<br> Идеальный выбор для тех, кто ценит экономию без потери комфорта. Наши экономичные автомобили отличаются высокой эффективностью топлива и надежностью.</h2>
+                <div class="d-flex align-items-center justify-content-start">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-item">
+            <div class="flex-item-inner d-flex align-items-end justify-content-center" style="background-image:url('https://douvogiannis.com/cars/pic5.png')">
+              <div class="modelInnerText"><h2>Комфорт-класс:<br>  Погрузитесь в атмосферу роскоши и уюта с нашими комфортабельными автомобилями класса "Комфорт". Просторные салоны и удобные сиденья позволят вам насладиться каждой поездкой.</h2>
+                <div class="d-flex align-items-center justify-content-start">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-item">
+            <div class="flex-item-inner d-flex align-items-end justify-content-center" style="background-image:url('https://douvogiannis.com/cars/pic2.png')">
+              <div class="modelInnerText"><h2>Бизнес-класс: <br> Для тех, кто ценит стиль и элегантность, наши автомобили бизнес-класса предлагают высокий уровень комфорта и сервиса. Это идеальный выбор для деловых поездок и встреч.</h2>
+                <div class="d-flex align-items-center justify-content-start">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-item">
+            <div class="flex-item-inner d-flex align-items-end justify-content-center" style="background-image:url('https://douvogiannis.com/cars/pic3.png')">
+              <div class="modelInnerText"><h2>VIP-класс:<br>  Почувствуйте себя знаменитостью с нашими автомобилями VIP-класса. Роскошные салоны, индивидуальное обслуживание и превосходный уровень комфорта создадут неповторимую атмосферу роскоши.</h2>
+                <div class="d-flex align-items-center justify-content-start">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="contacts">
+      <div class="contacts-title">
+        <h2>Наши контакты</h2>
+      </div>
+      <div class="contacts-texts">
+        <div class="contacts-text1">По всем вопросам:</div>
+        <div class="contacts-text2"><a href="tel:(617)730-2370:" class="contacts-text2">Пожалуйста, позвоните по телефону (617) 730-2370</a></div>
+        <div class="contacts-text3"><a href="tel:(617)730-2370" class="contacts-text3">Если у вас возникли жалобы, звоните телефону (617) 730-2370 </a></div>
+        <div class="contacts-text4"><a href="tel:(617)730-2385" class="contacts-text4">TAXI: (617) 730-2385</a></div>
+        <div class="contacts-text5"><a href="melito:SeniorStaff@gmail.com" class="contacts-text5"> Добрынин Фёдор</a></div>
+        <div class="contacts-text6">Директор TAXI BOOBER:<a href="melito:AmandaHirst@gmail.com" class="contacts-text7"> Желдак Вадим</a></div>
+        <div class="contacts-rectangle"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d94468.20218334542!2d-71.20711247126797!3d42.32661784953763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e373e6ec7e7f1d%3A0x54734e8e5960a98f!2sBrookline%2C%20MA%2C%20USA!5e0!3m2!1sen!2sin!4v1647762063701!5m2!1sen!2sin" width="640" height="450" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section class="otziv">
+      <figure class="snip1568">
+        <figcaption>
+          <h3>Вадим Желдак</h3>
+          <div class="rating-mini">
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class="active"></span>
+          </div>
+          <p>Отличное такси! Получил максимум удовольствия от поездки. Водитель <br> был очень вежлив. Оцениваю на 5 звёзд</p>
+        </figcaption>
+        <div class="profile-image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample5.jpg" alt="profile-sample2" />
+          <div class="icons"><a href="#"><i class="ion-social-reddit"></i></a>
+            <a href="#"> <i class="ion-social-twitter"></i></a>
+            <a href="#"> <i class="ion-social-vimeo"></i></a>
+          </div>
+        </div>
+      </figure>
+      <figure class="snip1568">
+        <figcaption>
+          <h3>Добрынин Фёдор</h3>
+          <div class="rating-mini">
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class=""></span>
+          </div>
+          <p>Прекрасное такси! Водитель топчик. Супер такси! Быстро, комфортно и без проблем. Водитель даже помог с багажом. Цены также приемлемые. Из минусов ехал 310 км/ч</p>
+        </figcaption>
+        <div class="profile-image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample7.jpg" alt="profile-sample7" />
+          <div class="icons"><a href="#"><i class="ion-social-reddit"></i></a>
+            <a href="#"> <i class="ion-social-twitter"></i></a>
+            <a href="#"> <i class="ion-social-vimeo"></i></a>
+          </div>
+        </div>
+      </figure>
+      <figure class="snip1568">
+        <figcaption>
+          <h3>Роогович Даниил</h3>
+          <div class="rating-mini">
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class=""></span>
+            <span class=""></span>
+            <span class=""></span>
+          </div>
+          <p>Слабенько. Почти опоздал из-за них на важную встречу. Водитель был неопытен и ездил слишком медленно. Две звезды - и то, по щедрости </p>
+        </figcaption>
+
+        <div class="profile-image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample4.jpg" alt="profile-sample6" />
+          <div class="icons"><a href="#"><i class="ion-social-reddit"></i></a>
+            <a href="#"> <i class="ion-social-twitter"></i></a>
+            <a href="#"> <i class="ion-social-vimeo"></i></a>
+          </div>
+        </div>
+      </figure>
+    </section>
+
+    <section class="rules">
+      <h2>Правила в такси</h2>
+      <ul>
+        <li>Пожалуйста, пристегните ремни безопасности во время поездки.</li>
+        <li>Не курите в салоне такси.</li>
+        <li>Пожалуйста, будьте вежливы и уважайте водителя и других пассажиров.</li>
+        <li>Не открывайте дверь, пока такси не полностью остановится.</li>
+        <li>Пожалуйста, не оставляйте мусор в салоне такси.</li>
+        <li>Запрещается переносить запрещенные предметы или материалы.</li>
+        <li>Пожалуйста, будьте готовы оплатить поездку наличными или кредитной картой.</li>
+        <li>В случае каких-либо проблем или вопросов обратитесь к водителю.</li>
+      </ul>
+    </section>
+
+
+
+    <footer class="footer">
+      <p>© 2024 Служба такси. Все права защищены.</p>
+    </footer>
+
+    <div type="button" class="callback-bt" onclick="showPhoneNumber()">
+      <div class="text-call">
+        <i class="fa fa-phone"></i>
+        <span>Заказать<br>звонок</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Контейнер для карты -->
+</body>
+<div id="map"></div>
+
+<script src="https://api-maps.yandex.ru/2.1/?apikey=2825bec6-4b80-4c41-9440-b867231a8d27&lang=ru_RU" type="text/javascript"></script>
+</script>
+<script>
+  function showPhoneNumber() {
+    var phoneNumber = "(617)730-2370";
+    alert("Номер телефона: " + phoneNumber);
+  }
+</script>
+<script>
+  $('.activate').on('click touch', function(e) {
+    var self = $(this);
+    if(!self.hasClass('loading')) {
+      self.addClass('loading');
+      setTimeout(function() {
+        self.addClass('done');
+        setTimeout(function() {
+          self.removeClass('loading done');
+        }, 1600);
+      }, 3200);
+    }
+  });
+</script>
+<script>
+  $(".hover").mouseleave(
+          function () {
+            $(this).removeClass("hover");
+          }
+  );
+</script>
+<script >
+  const menuButton = document.getElementById('menuButton');
+  const menu = document.getElementById('menu');
+  const closeButton = document.getElementById('closeButton');
+  document.getElementById('menuButton').addEventListener('click', function() {
+    this.classList.toggle('active');
+  });
+
+  menuButton.addEventListener('click', () => {
+    if (menu.style.opacity === '0' || menu.style.opacity === '')
+    {
+      menu.style.display = 'block';
+      setTimeout(() => { menu.style.opacity = '1';}, 10);
+
+    } else {
+      menu.style.opacity = '0';
+      setTimeout(() => { menu.style.display = 'none';}, 300);
+    }
+  });
+</script>
+</html>

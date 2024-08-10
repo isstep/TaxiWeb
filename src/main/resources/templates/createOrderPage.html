@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать заказ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/4.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=2825bec6-4b80-4c41-9440-b867231a8d27&lang=ru_RU" type="text/javascript"></script>
+</head>
+
+<body>
+
+
+<header>
+    <div class="text_header"><h1>TAXI BOOBER</h1> </div>
+    <a class="back-button" href="/mainPage">На главную</a>
+    <div class="positonmainheader"></div>
+</header>
+
+
+<div class="formik">
+    <form action="/createOrder" method="post" th:action="@{/createOrder}">
+        <div class="texth2"><h2> Цена:</h2>
+            <input type="text" id="priceDisplay" name="priceDisplay" autocomplete="off" readonly>
+        </div>
+        <input type="hidden" id="orderLatitude" name="orderLatitude" autocomplete="off" required  style="display: none;" >
+
+        <input type="hidden" id="orderLongitude" name="orderLongitude" autocomplete="off" required style="display: none;">
+
+        <input type="hidden" id="arrivalLatitude" name="arrivalLatitude" autocomplete="off" required style="display: none;">
+
+        <input type="hidden" id="arrivalLongitude" name="arrivalLongitude" autocomplete="off" required style="display: none;">
+
+        <input type="text" id="distanceInput" name="distance" autocomplete="off" required readonly style="display: none;">
+        <br>
+
+        <input type="hidden" id="priceInput" name="price" autocomplete="off">
+        <button type="button" onclick="showMap('order')">Выберите ваше местоположение</button>
+        <button type="button" onclick="showMap('arrival')">Выберите место прибытия</button>
+        <br>
+        <button type="submit">Разместить заказ</button>
+    </form>
+</div>
+<!-- Элемент для отображения карты -->
+<div id="map" style=" width: 600px; height: 400px; display: none; margin-top: -25%; margin-left:50%;"></div>
+<script>
+
+
+
+    var mapInProgress = false; // Переменная для отслеживания работы функции showMap
+
+    var distanceCalculated = false; // Флаг для отслеживания того, была ли уже вычислена дистанция
+
+    function showMap(location) {
+        var mapElement = document.getElementById('map');
+        if (!mapElement) {
+            console.error("Element with id 'map' not found.");
+            return;
+        }
+
+        // Если карта уже открыта, просто показываем её
+        if (mapElement.style.display === 'block') {
+            console.log('Map already open.');
+            return;
+        }
+
+        // Показываем карту перед инициализацией
+        mapElement.style.display = 'block';
+
+        // Инициализация карты
+        ymaps.ready(function () {
+            var map = new ymaps.Map('map', {
+                center: [53.902284, 27.561831], // Координаты центра карты (Минск)
+                zoom: 10 // Уровень масштабирования
+            });
+
+            // Создание экземпляра объекта для поиска адресов
+            var searchControl = new ymaps.control.SearchControl({ options: { provider: 'yandex#search' } });
+            map.controls.add(searchControl);
+
+            // Обработчик выбора местоположения
+            searchControl.events.add('resultselect', function (e) {
+                var address = e.get('target').getResultsArray()[0].properties.get('text');
+                var coordinates = e.get('target').getResultsArray()[0].geometry.getCoordinates();
+                console.log('Selected address:', address);
+                console.log('Coordinates:', coordinates);
+
+                var latitudeInput, longitudeInput;
+
+                // Определяем текстовые поля для координат в зависимости от местоположения
+                if (location === 'order') {
+                    latitudeInput = document.getElementById("orderLatitude");
+                    longitudeInput = document.getElementById("orderLongitude");
+                } else if (location === 'arrival') {
+                    latitudeInput = document.getElementById("arrivalLatitude");
+                    longitudeInput = document.getElementById("arrivalLongitude");
+                }
+                if (!latitudeInput || !longitudeInput) {
+                    console.error("Latitude or longitude input elements not found.");
+                    return;
+                }
+
+                // Заполняем текстовые поля координатами
+                latitudeInput.value = coordinates[0];
+                longitudeInput.value = coordinates[1];
+
+                // Скрываем карту после выбора координат
+                mapElement.style.display = 'none';
+
+                // Закрываем карту
+                map.destroy();
+
+                getDistance();
+
+            });
+        });
+    }
+
+
+
+    function getDistance() {
+        // Проверяем, была ли уже вычислена дистанция
+        if (distanceCalculated) {
+            console.log('Distance already calculated.');
+            return;
+        }
+
+        var orderLatitude = parseFloat(document.getElementById("orderLatitude").value);
+        var orderLongitude = parseFloat(document.getElementById("orderLongitude").value);
+        var arrivalLatitude = parseFloat(document.getElementById("arrivalLatitude").value);
+        var arrivalLongitude = parseFloat(document.getElementById("arrivalLongitude").value);
+
+        // Проверяем, что обе пары полей для координат заполнены
+        if (!isNaN(orderLatitude) && !isNaN(orderLongitude) && !isNaN(arrivalLatitude) && !isNaN(arrivalLongitude)) {
+            // Создаем объект для запроса расстояния между точками
+            var multiRoute = new ymaps.multiRouter.MultiRoute({
+                referencePoints: [
+                    [orderLatitude, orderLongitude],
+                    [arrivalLatitude, arrivalLongitude]
+                ],
+                params: {
+                    routingMode: 'pedestrian'
+                }
+            });
+
+            // Получение информации о маршруте (в данном случае - дистанции)
+            multiRoute.model.events.add('requestsuccess', function () {
+                var routes = multiRoute.getRoutes();
+                if (routes && routes.getLength() > 0) {
+                    var route = routes.get(0);
+                    var distance = route.properties.get('distance');
+                    if (distance) {
+                        var distanceText = distance.text;
+                        console.log('Distance between points:', distanceText);
+
+                        document.getElementById('distanceInput').value = distanceText;
+                        console.log('Distance saved:', distanceText);
+
+                        var price = calculatePrice(distanceText);
+                        console.log('Price for the route:', price);
+
+                        // Устанавливаем значение стоимости в текстовое поле
+                        var priceInput = document.getElementById('priceInput');
+                        if (priceInput) {
+                            priceInput.value = price;
+                        }
+
+                        // Устанавливаем флаг в true, чтобы указать, что дистанция была вычислена
+                        distanceCalculated = true;
+                    } else {
+                        console.error('Distance not available.');
+                    }
+                } else {
+                    console.error('No routes available.');
+                }
+            });
+        }
+    }
+
+
+    function calculatePrice(distance) {
+        // Получаем числовое значение расстояния из текстовой строки
+        var numericDistance = parseFloat(distance.replace(',', '.').split(' ')[0]); // Удаляем все нечисловые символы
+
+        // Проверяем, является ли numericDistance числом
+        if (!isNaN(numericDistance)) {
+            // Рассчитываем цену за маршрут
+            var price = numericDistance * 0.6; // 60 копеек за 1 км
+
+            // Возвращаем результат в виде строки
+            var formattedPrice = price.toFixed(2); // Округляем до двух знаков после запятой
+            // Устанавливаем значение в скрытое поле для передачи цены на сервер
+            var priceInput = document.getElementById('priceInput');
+            if (priceInput) {
+                priceInput.value = formattedPrice;
+            }
+
+            // Устанавливаем значение в поле для отображения цены
+            var priceDisplay = document.getElementById('priceDisplay');
+            if (priceDisplay) {
+                priceDisplay.value = formattedPrice;
+            }
+
+            // Возвращаем значение цены
+            return formattedPrice;
+        } else {
+            console.error('Invalid distance:', distance);
+            return null; // Возвращаем null в случае некорректного расстояния
+        }
+    }
+
+
+</script>
+</body>
+</html>
